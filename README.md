@@ -30,7 +30,6 @@ The data automatically refreshes every 10 seconds to show the latest hourly pric
 
 ```
 ├── index.html        # Main HTML file
-├── style.css         # Styles and spinner animation
 ├── script.js         # Main JavaScript logic
 └── README.md         # Project documentation
 ```
@@ -96,29 +95,6 @@ The charts refresh automatically using `setInterval`:
 
 ```js
 setInterval(makeCharts, 10000);
-```
-
----
-
-
-## Example API Response
-
-Example data from: `https://www.coinbase.com/api/v2/assets/prices/bitcoin`
-
-```json
-{
-  "data": {
-    "base": "BTC",
-    "prices": {
-      "hour": {
-        "prices": [
-          ["67234.12", 1697557200],
-          ["67220.57", 1697553600]
-        ]
-      }
-    }
-  }
-}
 ```
 
 ---

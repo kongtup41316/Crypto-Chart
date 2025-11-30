@@ -1,20 +1,21 @@
+// Reduce repetitive code
 const api = axios.create({
     baseURL: "https://www.coinbase.com/api/v2/assets/prices",
 });
 
+// this will be uses with  api.get
 const coins = ["bitcoin", "ethereum"];
 
-// the Chart is for chart.js 
+// For chart.js 
 function createChart(Chart, coinId, labels, data, symbol){
     const chartSection = document.querySelector("#chartSection");
 
     // canvas tag is just a rectangle box
     const canvas = document.createElement("canvas");
-    // assign ID
-    // i will display 2 chart bitcoin and ethereum so that why we need ID
     canvas.id = coinId;
     chartSection.appendChild(canvas);
 
+    // creating line chart using Chart.js
     new Chart(canvas, {
         // draw a line chart 
         type: "line",
@@ -30,7 +31,7 @@ function createChart(Chart, coinId, labels, data, symbol){
                 fill: true,
             }],
         },
-        // set responsive
+        // Automatically resize if the screen changes size
         options: {
             responsive: true,
         },
@@ -39,7 +40,7 @@ function createChart(Chart, coinId, labels, data, symbol){
 
 async function makeCharts() {
     const chartSection = document.querySelector("#chartSection");
-    // add loader spinner
+    // add loading spinner
     chartSection.innerHTML = `<div class="loader"></div>`
     const responses = await Promise.all(
         coins.map(async(coin) => {
@@ -49,7 +50,7 @@ async function makeCharts() {
             // using _ is disregard the prices we only want hour
             const labels = prices.map(([_, timestamp]) => 
                 // creates a new Date object representing that moment in time.
-                // my api unit is second so i need to * 1000 to make it millisecond for JS
+                // Unit is second so i need to * 1000 to make it millisecond for JS
                 new Date(timestamp * 1000).toLocaleTimeString()
             );
             const data = prices.map(([price]) => Number(price));
